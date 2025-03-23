@@ -19,10 +19,10 @@ class Product:
     @classmethod
     def new_product(cls, product_date: dict) -> Any:
         """Класс-метод принимает на вход параметры товара в словаре и возвращает объект класса Product."""
-        name = product_date.get("name")
-        description = product_date.get("description")
-        price = product_date.get("price")
-        quantity = product_date.get("quantity")
+        name = product_date.get("name", "Нет названия")
+        description = product_date.get("description", "Нет описания")
+        price = product_date.get("price", 0.0)
+        quantity = product_date.get("quantity", 0)
 
         return cls(name, description, price, quantity)
 
