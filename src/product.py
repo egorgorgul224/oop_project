@@ -2,7 +2,10 @@ from typing import Any
 
 
 class Product:
-    """Класс для представления продукта."""
+    """Класс для представления продукта.
+    Класс содержит следующие свойства: название (name: str), описание (description: str), цена(__price: float),
+    количество в наличии(quantity: int)
+    """
 
     name: str
     description: str

@@ -2,7 +2,9 @@ from src.product import Product
 
 
 class Category:
-    """Класс для представления категории продукта."""
+    """Класс для представления категории продукта.
+    Класс содержит следующие свойства: название (name: str), описание (description: str),
+    список товаров категории (__products: list)."""
 
     name: str
     description: str
