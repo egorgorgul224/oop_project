@@ -19,13 +19,13 @@ class Category:
         Category.product_count += len(products) if products else 0
 
     def add_product(self, product: Product) -> None:
-        """"""
+        """Метод добавляет новый экземпляр класса Product в приватный список продуктов."""
         self.__products.append(product)
         Category.product_count += 1
 
     @property
     def products(self) -> str:
-        """"""
+        """Геттер выводит список товаров в виде строк."""
         products_str = ""
         for product in self.__products:
             products_str += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n"
