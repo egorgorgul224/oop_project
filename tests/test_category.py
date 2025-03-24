@@ -1,10 +1,8 @@
-from typing import Type
-
 from src.category import Category
 from src.product import Product
 
 
-def test_category_init(smartphone_category: Type[Category], tv_category: Type[Category]) -> None:
+def test_category_init(smartphone_category: Category, tv_category: Category) -> None:
     """Тест проверяет корректное создания экземпляра класса Category с атрибутами name, description, products. Также
     тест проверяет корректный подсчет количества категорий и количества продуктов в этой категории."""
     assert smartphone_category.name == "Смартфоны"
@@ -23,7 +21,7 @@ def test_category_init(smartphone_category: Type[Category], tv_category: Type[Ca
     assert tv_category.product_count == 4
 
 
-def test_category_add_product(smartphone_category: Type[Category]) -> None:
+def test_category_add_product(smartphone_category: Category) -> None:
     """Тест проверяет корректное добавление нового экземпляра класса Product в список продуктов."""
     new_product = Product('55" QLED 4K', "Фоновая подсветка", 123000.0, 7)
     assert len(smartphone_category.products_in_list) == 3
@@ -31,7 +29,7 @@ def test_category_add_product(smartphone_category: Type[Category]) -> None:
     assert len(smartphone_category.products_in_list) == 4
 
 
-def test_category_products_getter(smartphone_category: Type[Category]) -> None:
+def test_category_products_getter(smartphone_category: Category) -> None:
     """Тест проверяет корректный вывод товаров в виде строки."""
     assert smartphone_category.products == (
         "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт.\n"

@@ -1,9 +1,9 @@
-from typing import Any, Type
+from typing import Any
 
 from src.product import Product
 
 
-def test_product_init(samsung_product: Type[Product], iphone_product: Type[Product]) -> None:
+def test_product_init(samsung_product: Product, iphone_product: Product) -> None:
     """Тест проверяет корректное создания экземпляра класса Product с атрибутами name, description, price, quantity."""
     assert samsung_product.name == "Samsung Galaxy S23 Ultra"
     assert samsung_product.description == "256GB, Серый цвет, 200MP камера"
@@ -27,13 +27,13 @@ def test_new_product() -> None:
     assert new_product.quantity == 5
 
 
-def test_price_setter(samsung_product: Type[Product]) -> None:
+def test_price_setter(samsung_product: Product) -> None:
     """Тест проверяет корректное изменение цены у продукта, если цена задана выше 0."""
     samsung_product.price = 100.0
     assert samsung_product.price == 100.0
 
 
-def test_price_zero_setter(capsys: Any, samsung_product: Type[Product]) -> None:
+def test_price_zero_setter(capsys: Any, samsung_product: Product) -> None:
     """Тест проверяет корректный возврат сообщение, если заданная цена меньше или равна 0."""
     samsung_product.price = 0
     captured = capsys.readouterr()
