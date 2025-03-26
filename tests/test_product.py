@@ -1,4 +1,5 @@
 from typing import Any
+from unittest.mock import MagicMock, patch
 
 from src.product import Product
 
@@ -44,9 +45,27 @@ def test_new_product_not_in_list() -> None:
 
 
 def test_price_setter(samsung_product: Product) -> None:
-    """Тест проверяет корректное изменение цены у продукта, если цена задана выше 0."""
-    samsung_product.price = 100.0
-    assert samsung_product.price == 100.0
+    """Тест проверяет корректное изменение цены у продукта, если цена задана выше установленной."""
+    samsung_product.price = 200000.0
+    assert samsung_product.price == 200000.0
+
+
+@patch("builtins.input", side_effect="y")
+def test_price_setter_reduce(mock_input: MagicMock) -> None:
+    """Тест проверяет корректное изменение цены у продукта, если цена задана ниже установленной и пользователь
+    подтвердил изменение цены."""
+    test_product = Product("Test_name", "250gb", 150.0, 2)
+    test_product.price = 100.0
+    assert test_product.price == 100.0
+
+
+@patch("builtins.input", side_effect="n")
+def test_price_setter_no_reduce(mock_input: MagicMock) -> None:
+    """Тест проверяет корректное сохранение цены у продукта, если цена задана ниже установленной и пользователь
+    не подтвердил изменение цены."""
+    test_product = Product("Test_name", "250gb", 150.0, 2)
+    test_product.price = 100.0
+    assert test_product.price == 150.0
 
 
 def test_price_zero_setter(capsys: Any, samsung_product: Product) -> None:

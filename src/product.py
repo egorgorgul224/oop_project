@@ -66,10 +66,18 @@ class Product:
 
     @price.setter
     def price(self, update_price: int) -> None:
-        """Сеттер обновляет цену товара, если переданная цена больше 0."""
+        """Сеттер обновляет цену товара. Если цена товара равна или меньше 0, то выводит сообщение об ошибке.
+        Если цена товара меньше установленной, то спрашивает у пользователя подтверждение замены цены и обновляет цену
+        в случае согласия пользователя. Если цена выше установленной, то обновляет цену."""
 
         if update_price <= 0:
             print("Цена не должна быть нулевая или отрицательная")
             return
-
-        self.__price = update_price
+        elif update_price < self.__price:
+            confirm_message = input("Понизить цену товара? (y: yes / любой другой ответ: no):")
+            if confirm_message == "y":
+                self.__price = update_price
+            else:
+                return
+        else:
+            self.__price = update_price
