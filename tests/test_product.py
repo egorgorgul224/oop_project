@@ -27,6 +27,22 @@ def test_new_product() -> None:
     assert new_product.quantity == 5
 
 
+def test_new_product_not_in_list() -> None:
+    """Тест проверяет корректное создание нового экземпляра класса Product из словаря данных."""
+    new_product = Product.new_product(
+        {
+            "name": "Samsung",
+            "description": "256GB",
+            "price": 180.0,
+            "quantity": 5,
+        }
+    )
+    assert new_product.name == "Samsung"
+    assert new_product.description == "256GB"
+    assert new_product.price == 180.0
+    assert new_product.quantity == 5
+
+
 def test_price_setter(samsung_product: Product) -> None:
     """Тест проверяет корректное изменение цены у продукта, если цена задана выше 0."""
     samsung_product.price = 100.0
