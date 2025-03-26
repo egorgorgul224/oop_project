@@ -11,32 +11,63 @@ class Product:
     description: str
     price: float
     quantity: int
+    products_list: list = []
 
     def __init__(self, name: str, description: str, price: float, quantity: int):
-        """Метод для инициализации экземпляра класса Product. Задаем значения атрибутам экземпляра."""
+        """Метод для инициализации экземпляра класса Product. Задаем значения атрибутам экземпляра. Добавляет
+        экземпляр класса в список продуктов."""
+
         self.name = name
         self.description = description
         self.__price = price
         self.quantity = quantity
 
+        if self.check_product_in_list(name, price, quantity):
+            self_product = {"name": name, "description": description, "price": price, "quantity": quantity}
+            Product.products_list.append(self_product)
+
+    @staticmethod
+    def check_product_in_list(name: str, price: float, quantity: int) -> bool:
+        """Статическй метод проверяет наличие товара по переданному имени. Если имя существует, то суммирует кол-во
+        и устанавливает максимальную цену. Если имя не найдено, то возвращает True-знак для добавления товара в
+        список."""
+
+        for product in Product.products_list:
+            if name == product.get("name", ""):
+                product["quantity"] += quantity
+                product["price"] = max(product["price"], price)
+                return False
+
+        return True
+
     @classmethod
     def new_product(cls, product_date: dict) -> Any:
-        """Класс-метод принимает на вход параметры товара в словаре и возвращает объект класса Product."""
+        """Класс-метод принимает на вход параметры товара в словаре и возвращает объект класса Product. Также проверяет
+        наличие данного товара в списке по имени. Если такого товара нет, то добавляет его в список. Иначе суммирует
+        кол-во товара и устанавливает максимальную цену."""
+
         name = product_date.get("name", "Нет названия")
         description = product_date.get("description", "Нет описания")
         price = product_date.get("price", 0.0)
         quantity = product_date.get("quantity", 0)
 
-        return cls(name, description, price, quantity)
+        if cls.check_product_in_list(name, price, quantity):
+            cls_product = {"name": name, "description": description, "price": price, "quantity": quantity}
+            Product.products_list.append(cls_product)
+            return cls(name, description, price, quantity)
+        else:
+            return cls(name, description, price, quantity)
 
     @property
     def price(self) -> float:
         """Геттер возвращает цену за выбранный товар."""
+
         return self.__price
 
     @price.setter
     def price(self, update_price: int) -> None:
         """Сеттер обновляет цену товара, если переданная цена больше 0."""
+
         if update_price <= 0:
             print("Цена не должна быть нулевая или отрицательная")
             return
