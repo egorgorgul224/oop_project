@@ -21,6 +21,7 @@ class Product:
         self.description = description
         self.__price = price
         self.quantity = quantity
+        self.product_cost = price * quantity
 
         if self.check_product_in_list(name, price, quantity):
             self_product = {"name": name, "description": description, "price": price, "quantity": quantity}
@@ -30,6 +31,11 @@ class Product:
         """Метод для отображения строки в виде: Название продукта, сумма руб. Остаток: количество шт."""
 
         return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
+
+    def __add__(self, other: Any) -> Any:
+        """Метод возвращает полную стоимость всех товаров на складе"""
+
+        return self.product_cost + other.product_cost
 
     @staticmethod
     def check_product_in_list(name: str, price: float, quantity: int) -> bool:
