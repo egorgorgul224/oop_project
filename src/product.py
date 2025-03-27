@@ -26,6 +26,11 @@ class Product:
             self_product = {"name": name, "description": description, "price": price, "quantity": quantity}
             Product.products_list.append(self_product)
 
+    def __str__(self) -> str:
+        """Метод для отображения строки в виде: Название продукта, сумма руб. Остаток: количество шт."""
+
+        return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
+
     @staticmethod
     def check_product_in_list(name: str, price: float, quantity: int) -> bool:
         """Статическй метод проверяет наличие товара по переданному имени. Если имя существует, то суммирует кол-во

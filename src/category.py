@@ -20,6 +20,14 @@ class Category:
         Category.category_count += 1
         Category.product_count += len(products) if products else 0
 
+    def __str__(self) -> str:
+        """Метод для отображения строки в виде: Название категории, количество продуктов: сумма шт."""
+
+        product_quantity = 0
+        for product in self.__products:
+            product_quantity += product.quantity
+        return f"{self.name}, количество продуктов: {product_quantity} шт."
+
     def add_product(self, product: Product) -> None:
         """Метод добавляет новый экземпляр класса Product в приватный список продуктов."""
         if isinstance(product, Product):
@@ -33,7 +41,7 @@ class Category:
         """Геттер выводит список товаров в виде строк."""
         products_str = ""
         for product in self.__products:
-            products_str += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n"
+            products_str += f"{Product.__str__(product)}\n"
 
         return products_str
 
