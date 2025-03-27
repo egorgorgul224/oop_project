@@ -36,3 +36,10 @@ def test_category_products_getter(smartphone_category: Category) -> None:
         "Iphone 15, 210000.0 руб. Остаток: 8 шт.\n"
         "Xiaomi Redmi Note 11, 31000.0 руб. Остаток: 14 шт.\n"
     )
+
+
+def test_category_str(smartphone_category: Category) -> None:
+    """Тест проверяет корректный возврат сообщения из метода str в формате: Название категории,
+    количество продуктов: количество шт."""
+
+    assert str(smartphone_category) == "Смартфоны, количество продуктов: 27 шт."
