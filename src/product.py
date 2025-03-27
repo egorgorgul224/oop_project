@@ -33,7 +33,7 @@ class Product:
         return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
 
     def __add__(self, other: Any) -> Any:
-        """Метод возвращает полную стоимость всех товаров на складе"""
+        """Метод возвращает полную стоимость всех товаров на складе."""
 
         return self.product_cost + other.product_cost
 
