@@ -73,3 +73,15 @@ def test_price_zero_setter(capsys: Any, samsung_product: Product) -> None:
     samsung_product.price = 0
     captured = capsys.readouterr()
     assert captured.out == "Цена не должна быть нулевая или отрицательная\n"
+
+
+def test_product_str(samsung_product: Product) -> None:
+    """Тест проверяет корректный вывод метода str."""
+
+    assert str(samsung_product) == "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт."
+
+
+def test_product_add(samsung_product: Product, iphone_product: Product) -> None:
+    """Тест проверяет корректный вывод полной стоимости продуктов(количество * цену)."""
+
+    assert samsung_product + iphone_product == 2580000
