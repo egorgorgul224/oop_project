@@ -16,11 +16,11 @@ def test_smartphone_init(smartphone_product: Smartphone) -> None:
 
 
 def test_smartphone_add(smartphone_product: Smartphone, smartphone_product_another: Smartphone) -> None:
-    """"""
+    """Тест проверяет корректное сложение и вывод общей суммы всего товара категории Smartphone."""
     assert smartphone_product + smartphone_product_another == 2580000
 
 
 def test_smartphone_add_error(smartphone_product: Smartphone, smartphone_product_another: Smartphone) -> None:
-    """"""
+    """Тест проверяет корректный вывод ошибки TypeError, если пытаются сложить данные не подкласса Smartphone."""
     with pytest.raises(TypeError):
         assert smartphone_product + 1
