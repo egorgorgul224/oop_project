@@ -1,3 +1,5 @@
+import pytest
+
 from src.category import Category
 from src.product import Product
 
@@ -27,6 +29,13 @@ def test_category_add_product(smartphone_category: Category) -> None:
     assert len(smartphone_category.products_in_list) == 3
     smartphone_category.add_product(new_product)
     assert len(smartphone_category.products_in_list) == 4
+
+
+def test_category_add_product_error(smartphone_category: Category) -> None:
+    """Тест проверяет корректный вывод ошибки TypeError, если добавляется не экземпляр класса Product."""
+    new_product = "12121"
+    with pytest.raises(TypeError):
+        smartphone_category.add_product(new_product)
 
 
 def test_category_products_getter(smartphone_category: Category) -> None:
