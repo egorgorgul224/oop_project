@@ -18,7 +18,7 @@
 ## Описание<a id="description"></a>
 Проект представляет собой изучение ООП. В данном проекте реализовано два класса *Product* и *Category*. В классах
 описаны атрибуты, реализованы инициализация экземпляров класса, методы, методы с декораторами. Для каждого класса
-написаны тесты.
+написаны тесты. Реализовано два подкласса класса *Product*. Это классы *Smartphone* и *LawnGrass*.
 
 ---
 
@@ -45,12 +45,16 @@ poetry install
 ├── src
 │ ├── __init__.py
 │ ├── category.py - в модуле находится класс Category и инициализация экземпляра класса
+│ ├── lawn_grass.py - в модуле находится подкласс LawnGrass класса Product
 │ ├── product - в модуле находится класс Product и инициализация экземпляра класса
+│ ├── smartphone - в модуле находится подкласс Smartphone класса Product
 ├── tests - в папке находятся тесты для каждого модуля с классами
 │ ├── __init__.py
 │ ├── conftest.py
 │ ├── test_category.py
+│ ├── test_lawn_grass.py
 │ ├── test_product.py
+│ ├── test_smartphone.py
 ├── .flake8
 ├── .gitignore
 ├── main.py - в модуле запускается проверка реализации классов
@@ -97,11 +101,52 @@ print(product1.quantity)
 ```
 Класс протестирован в модуле *test_product* в папке **tests**.
 
+3. Класс *LawnGrass* представляет категорию родительского класса Product. В классе реализованы атрибуты родительского
+класса и доп. атрибуты данного класса: страна-производитель, срок прорастания, цвет.
+Добавлен метод инициализации экземпляра класса с данными атрибутами.
+
+```
+Пример создания экземпляра класса:
+grass1 = LawnGrass("Газонная трава", "Элитная трава для газона", 500.0, 20, "Россия", "7 дней", "Зеленый")
+
+Пример проверки атрибутов экземпляра класса:
+print(grass1.name)
+print(grass1.description)
+print(grass1.price)
+print(grass1.quantity)
+print(grass1.country)
+print(grass1.germination_period)
+print(grass1.color)
+```
+Класс протестирован в модуле *test_lawn_grass* в папке **tests**.
+
+4. Класс *Smartphone* представляет категорию родительского класса Product. В классе реализованы атрибуты родительского
+класса и доп. атрибуты данного класса: производительность, модель, объем встроенной памяти и цвет.
+Добавлен метод инициализации экземпляра класса с данными атрибутами.
+
+```
+Пример создания экземпляра класса:
+smartphone1 = Smartphone("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5, 95.5,
+                             "S23 Ultra", 256, "Серый")
+
+Пример проверки атрибутов экземпляра класса:
+print(smartphone1.name)
+print(smartphone1.description)
+print(smartphone1.price)
+print(smartphone1.quantity)
+print(smartphone1.efficiency)
+print(smartphone1.model)
+print(smartphone1.memory)
+print(smartphone1.color)
+```
+Класс протестирован в модуле *test_smartphone* в папке **tests**.
+
 ---
 
 ## Методы, декораторы, примеры и тестирование<a id="func"></a>
 ### Методы, декораторы для класса Category
-1. Метод *add_product* добавляет новый экземпляр класса Product в приватный список продуктов класса Category.
+1. Метод *add_product* добавляет новый экземпляр класса Product в приватный список продуктов класса Category. Если
+передается не экземпляр класса Product, то возбуждается ошибка TypeError.
 
 ```
 Вызов метода: 
@@ -280,7 +325,8 @@ Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт.
 ```
 Метод протестирован в модуле *test_product* в папке **tests**.
 
-6. Метод *add* возвращает полную стоимость всех товаров на складе.
+6. Метод *add* возвращает полную стоимость всех товаров на складе выбранной категории товаров. Если выбраны товары
+разной категории, то возбуждается ошибка TypeError.
 
 ```
 Использование метода: 
@@ -301,42 +347,120 @@ print(product1 + product2)
 ```
 Вызов main:
 
-product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
-product2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
-product3 = Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14)
+smartphone1 = Smartphone("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5, 95.5,
+                             "S23 Ultra", 256, "Серый")
+smartphone2 = Smartphone("Iphone 15", "512GB, Gray space", 210000.0, 8, 98.2, "15", 512, "Gray space")
 
-print(str(product1))
-print(str(product2))
-print(str(product3))
+print(smartphone1.name)
+print(smartphone1.description)
+print(smartphone1.price)
+print(smartphone1.quantity)
+print(smartphone1.efficiency)
+print(smartphone1.model)
+print(smartphone1.memory)
+print(smartphone1.color)
 
-category1 = Category(
-    "Смартфоны",
-    "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни",
-    [product1, product2, product3],
-)
+print(smartphone2.name)
+print(smartphone2.description)
+print(smartphone2.price)
+print(smartphone2.quantity)
+print(smartphone2.efficiency)
+print(smartphone2.model)
+print(smartphone2.memory)
+print(smartphone2.color)
 
-print(str(category1))
+grass1 = LawnGrass("Газонная трава", "Элитная трава для газона", 500.0, 20, "Россия", "7 дней", "Зеленый")
+grass2 = LawnGrass("Газонная трава 2", "Выносливая трава", 450.0, 15, "США", "5 дней", "Темно-зеленый")
 
-print(category1.products)
+print(grass1.name)
+print(grass1.description)
+print(grass1.price)
+print(grass1.quantity)
+print(grass1.country)
+print(grass1.germination_period)
+print(grass1.color)
 
-print(product1 + product2)
-print(product1 + product3)
-print(product2 + product3)
+print(grass2.name)
+print(grass2.description)
+print(grass2.price)
+print(grass2.quantity)
+print(grass2.country)
+print(grass2.germination_period)
+print(grass2.color)
+
+smartphone_sum = smartphone1 + smartphone2
+print(smartphone_sum)
+
+grass_sum = grass1 + grass2
+print(grass_sum)
+
+try:
+    invalid_sum = smartphone1 + grass1
+except TypeError:
+    print("Возникла ошибка TypeError при попытке сложения")
+else:
+    print("Не возникла ошибка TypeError при попытке сложения")
+
+category_smartphones = Category("Смартфоны", "Высокотехнологичные смартфоны", [smartphone1, smartphone2])
+category_grass = Category("Газонная трава", "Различные виды газонной травы", [grass1, grass2])
+
+category_smartphones.add_product(smartphone3)
+
+print(category_smartphones.products)
+
+print(Category.product_count)
+
+try:
+    category_smartphones.add_product("Not a product")
+except TypeError:
+    print("Возникла ошибка TypeError при добавлении не продукта")
+else:
+    print("Не возникла ошибка TypeError при добавлении не продукта")
+
 ```
 ```
 Результат:
 
-Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт.
-Iphone 15, 210000.0 руб. Остаток: 8 шт.
-Xiaomi Redmi Note 11, 31000.0 руб. Остаток: 14 шт.
-Смартфоны, количество продуктов: 27 шт.
+Samsung Galaxy S23 Ultra
+256GB, Серый цвет, 200MP камера
+180000.0
+5
+95.5
+S23 Ultra
+256
+Серый
+Iphone 15
+512GB, Gray space
+210000.0
+8
+98.2
+15
+512
+Gray space
+Газонная трава
+Элитная трава для газона
+500.0
+20
+Россия
+7 дней
+Зеленый
+Газонная трава 2
+Выносливая трава
+450.0
+15
+США
+5 дней
+Темно-зеленый
+2580000.0
+16750.0
+Возникла ошибка TypeError при попытке сложения
 Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт.
 Iphone 15, 210000.0 руб. Остаток: 8 шт.
 Xiaomi Redmi Note 11, 31000.0 руб. Остаток: 14 шт.
 
-2580000.0
-1334000.0
-2114000.0
+5
+Возникла ошибка TypeError при добавлении не продукта
+
 ```
 
 ---

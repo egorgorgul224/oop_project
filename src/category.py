@@ -34,7 +34,7 @@ class Category:
             self.__products.append(product)
             Category.product_count += 1
         else:
-            print("Неверный тип")
+            raise TypeError
 
     @property
     def products(self) -> str:
