@@ -7,6 +7,6 @@ class BaseProduct(ABC):
 
     @classmethod
     @abstractmethod
-    def new_product(cls, *args: Any, **kwargs: Any)-> Any:
+    def new_product(cls, *args: Any, **kwargs: Any) -> Any:
         """Абстрактный метод для добавления нового продукта класса."""
         pass
