@@ -1,13 +1,13 @@
+from typing import Any
+
 from src.lawn_grass import LawnGrass
 from src.product import Product
 from src.smartphone import Smartphone
 
 
-def test_print_mixin(capsys):
-    """"""
-    Product(
-        name="Samsung Galaxy S23 Ultra", description="256GB, Серый цвет, 200MP камера", price=180000.0, quantity=5
-    )
+def test_print_mixin(capsys: Any) -> None:
+    """Тест проверяет корректный вывод информации об экземпляре класса в консоль."""
+    Product(name="Samsung Galaxy S23 Ultra", description="256GB, Серый цвет, 200MP камера", price=180000.0, quantity=5)
     captured = capsys.readouterr()
     assert captured.out.strip() == "Product(Samsung Galaxy S23 Ultra, 256GB, Серый цвет, 200MP камера, 180000.0, 5)"
 
