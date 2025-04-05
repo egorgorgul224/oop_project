@@ -1,7 +1,9 @@
 from typing import Any
 
+from src.base_product import BaseProduct
 
-class Product:
+
+class Product(BaseProduct):
     """Класс для представления продукта.
     Класс содержит следующие свойства: название (name: str), описание (description: str), цена(__price: float),
     количество в наличии(quantity: int)
