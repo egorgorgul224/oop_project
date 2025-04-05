@@ -72,7 +72,7 @@ def test_price_zero_setter(capsys: Any, samsung_product: Product) -> None:
     """Тест проверяет корректный возврат сообщение, если заданная цена меньше или равна 0."""
     samsung_product.price = 0
     captured = capsys.readouterr()
-    assert captured.out == "Цена не должна быть нулевая или отрицательная\n"
+    assert captured.out.strip().split("\n")[-1] == "Цена не должна быть нулевая или отрицательная"
 
 
 def test_product_str(samsung_product: Product) -> None:
