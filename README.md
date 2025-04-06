@@ -19,7 +19,7 @@
 Проект представляет собой изучение ООП. В данном проекте реализовано два класса *Product* и *Category*. В классах
 описаны атрибуты, реализованы инициализация экземпляров класса, методы, методы с декораторами. Для каждого класса
 написаны тесты. Реализовано два подкласса класса *Product*. Это классы *Smartphone* и *LawnGrass*.
-
+В проекте были реализованы абстрактный класс *BaseProduct* и класс миксин *PrintMixin*.
 ---
 
 ## Установка и настройка проекта<a id="instruction"></a>
@@ -44,8 +44,10 @@ poetry install
 .
 ├── src
 │ ├── __init__.py
+│ ├── base_product - в модуле находится абстрактный класс BaseProduct
 │ ├── category.py - в модуле находится класс Category и инициализация экземпляра класса
 │ ├── lawn_grass.py - в модуле находится подкласс LawnGrass класса Product
+│ ├── print_mixin - в модуле находится класс миксин PrintMixin для вывода информации об экземпляре класса в консоль
 │ ├── product - в модуле находится класс Product и инициализация экземпляра класса
 │ ├── smartphone - в модуле находится подкласс Smartphone класса Product
 ├── tests - в папке находятся тесты для каждого модуля с классами
@@ -53,6 +55,7 @@ poetry install
 │ ├── conftest.py
 │ ├── test_category.py
 │ ├── test_lawn_grass.py
+│ ├── test_print_mixin.py
 │ ├── test_product.py
 │ ├── test_smartphone.py
 ├── .flake8
@@ -140,6 +143,26 @@ print(smartphone1.memory)
 print(smartphone1.color)
 ```
 Класс протестирован в модуле *test_smartphone* в папке **tests**.
+
+5. Класс миксин *PrintMixin* нужен для печати в консоль следующей информации об экземпляре класса
+(класс, имя, описание, цена и количество). В классе реализован магический метод __repr__ и его вызов при
+инициализации экземпляра класса.
+
+```
+Пример реализации метода:
+def __init__(self):
+    print(repr(self))
+
+def __repr__(self):
+    return f"{self.__class__.__name__}({self.name}, {self.description}, {self.price}, {self.quantity})"
+
+Пример вывода информации:
+Product(Iphone 15, 512GB, Gray space, 210000.0, 8)
+```
+Класс протестирован в модуле *test_print_mixin* в папке **tests**.
+
+6. Абстрактный класс *BaseProduct*. В нем реализован абстрактный класс-метод для добавления нового продукта,
+который используется во всех классах-наследниках.
 
 ---
 
@@ -347,120 +370,84 @@ print(product1 + product2)
 ```
 Вызов main:
 
-smartphone1 = Smartphone("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5, 95.5,
-                             "S23 Ultra", 256, "Серый")
-smartphone2 = Smartphone("Iphone 15", "512GB, Gray space", 210000.0, 8, 98.2, "15", 512, "Gray space")
+product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
+product2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
+product3 = Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14)
 
-print(smartphone1.name)
-print(smartphone1.description)
-print(smartphone1.price)
-print(smartphone1.quantity)
-print(smartphone1.efficiency)
-print(smartphone1.model)
-print(smartphone1.memory)
-print(smartphone1.color)
+print(product1.name)
+print(product1.description)
+print(product1.price)
+print(product1.quantity)
 
-print(smartphone2.name)
-print(smartphone2.description)
-print(smartphone2.price)
-print(smartphone2.quantity)
-print(smartphone2.efficiency)
-print(smartphone2.model)
-print(smartphone2.memory)
-print(smartphone2.color)
+print(product2.name)
+print(product2.description)
+print(product2.price)
+print(product2.quantity)
 
-grass1 = LawnGrass("Газонная трава", "Элитная трава для газона", 500.0, 20, "Россия", "7 дней", "Зеленый")
-grass2 = LawnGrass("Газонная трава 2", "Выносливая трава", 450.0, 15, "США", "5 дней", "Темно-зеленый")
+print(product3.name)
+print(product3.description)
+print(product3.price)
+print(product3.quantity)
 
-print(grass1.name)
-print(grass1.description)
-print(grass1.price)
-print(grass1.quantity)
-print(grass1.country)
-print(grass1.germination_period)
-print(grass1.color)
+category1 = Category(
+    "Смартфоны",
+    "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни",
+    [product1, product2, product3],
+)
 
-print(grass2.name)
-print(grass2.description)
-print(grass2.price)
-print(grass2.quantity)
-print(grass2.country)
-print(grass2.germination_period)
-print(grass2.color)
+print(category1.name == "Смартфоны")
+print(category1.description)
+print(len(category1.products))
+print(category1.category_count)
+print(category1.product_count)
 
-smartphone_sum = smartphone1 + smartphone2
-print(smartphone_sum)
+product4 = Product('55" QLED 4K', "Фоновая подсветка", 123000.0, 7)
+category2 = Category(
+    "Телевизоры",
+    "Современный телевизор, который позволяет наслаждаться просмотром, станет вашим другом и помощником",
+    [product4],
+)
 
-grass_sum = grass1 + grass2
-print(grass_sum)
+print(category2.name)
+print(category2.description)
+print(len(category2.products))
+print(category2.products)
 
-try:
-    invalid_sum = smartphone1 + grass1
-except TypeError:
-    print("Возникла ошибка TypeError при попытке сложения")
-else:
-    print("Не возникла ошибка TypeError при попытке сложения")
-
-category_smartphones = Category("Смартфоны", "Высокотехнологичные смартфоны", [smartphone1, smartphone2])
-category_grass = Category("Газонная трава", "Различные виды газонной травы", [grass1, grass2])
-
-category_smartphones.add_product(smartphone3)
-
-print(category_smartphones.products)
-
+print(Category.category_count)
 print(Category.product_count)
-
-try:
-    category_smartphones.add_product("Not a product")
-except TypeError:
-    print("Возникла ошибка TypeError при добавлении не продукта")
-else:
-    print("Не возникла ошибка TypeError при добавлении не продукта")
 
 ```
 ```
 Результат:
 
+Product(Samsung Galaxy S23 Ultra, 256GB, Серый цвет, 200MP камера, 180000.0, 5)
+Product(Iphone 15, 512GB, Gray space, 210000.0, 8)
+Product(Xiaomi Redmi Note 11, 1024GB, Синий, 31000.0, 14)
 Samsung Galaxy S23 Ultra
 256GB, Серый цвет, 200MP камера
 180000.0
 5
-95.5
-S23 Ultra
-256
-Серый
 Iphone 15
 512GB, Gray space
 210000.0
 8
-98.2
-15
-512
-Gray space
-Газонная трава
-Элитная трава для газона
-500.0
-20
-Россия
-7 дней
-Зеленый
-Газонная трава 2
-Выносливая трава
-450.0
-15
-США
-5 дней
-Темно-зеленый
-2580000.0
-16750.0
-Возникла ошибка TypeError при попытке сложения
-Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт.
-Iphone 15, 210000.0 руб. Остаток: 8 шт.
-Xiaomi Redmi Note 11, 31000.0 руб. Остаток: 14 шт.
+Xiaomi Redmi Note 11
+1024GB, Синий
+31000.0
+14
+True
+Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни
+146
+1
+3
+Product(55" QLED 4K, Фоновая подсветка, 123000.0, 7)
+Телевизоры
+Современный телевизор, который позволяет наслаждаться просмотром, станет вашим другом и помощником
+42
+55" QLED 4K, 123000.0 руб. Остаток: 7 шт.
 
-5
-Возникла ошибка TypeError при добавлении не продукта
-
+2
+4
 ```
 
 ---

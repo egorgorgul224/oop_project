@@ -1,7 +1,10 @@
 from typing import Any
 
+from src.base_product import BaseProduct
+from src.print_mixin import PrintMixin
 
-class Product:
+
+class Product(BaseProduct, PrintMixin):
     """Класс для представления продукта.
     Класс содержит следующие свойства: название (name: str), описание (description: str), цена(__price: float),
     количество в наличии(quantity: int)
@@ -22,6 +25,7 @@ class Product:
         self.__price = price
         self.quantity = quantity
         self.product_cost = price * quantity
+        super().__init__()
 
         if self.check_product_in_list(name, price, quantity):
             self_product = {"name": name, "description": description, "price": price, "quantity": quantity}
@@ -67,9 +71,9 @@ class Product:
         if cls.check_product_in_list(name, price, quantity):
             cls_product = {"name": name, "description": description, "price": price, "quantity": quantity}
             Product.products_list.append(cls_product)
-            return cls(name, description, price, quantity)
+            return cls(**product_date)
         else:
-            return cls(name, description, price, quantity)
+            return cls(**product_date)
 
     @property
     def price(self) -> float:
