@@ -1,6 +1,8 @@
 from typing import Any
 from unittest.mock import MagicMock, patch
 
+import pytest
+
 from src.product import Product
 
 
@@ -85,3 +87,10 @@ def test_product_add(samsung_product: Product, iphone_product: Product) -> None:
     """Тест проверяет корректный вывод полной стоимости продуктов(количество * цену)."""
 
     assert samsung_product + iphone_product == 2580000
+
+
+def test_product_with_zero_quantity() -> None:
+    """Тест проверяет корректный вызов ошибки ValueError, если при создании товара указано количество 0."""
+
+    with pytest.raises(ValueError):
+        Product(name="Samsung23", description="256GB, Серый цвет", price=180.0, quantity=0)

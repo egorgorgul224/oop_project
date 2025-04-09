@@ -55,7 +55,7 @@ def test_category_str(smartphone_category: Category) -> None:
 
 
 def test_category_middle_price(smartphone_category: Category, category_without_product: Category) -> None:
-    """"""
+    """Тест проверяет корректный вывод средней стоимости всех товаров из категории."""
 
     assert smartphone_category.middle_price() == 9
     assert category_without_product.middle_price() == 0
