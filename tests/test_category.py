@@ -52,3 +52,10 @@ def test_category_str(smartphone_category: Category) -> None:
     количество продуктов: количество шт."""
 
     assert str(smartphone_category) == "Смартфоны, количество продуктов: 27 шт."
+
+
+def test_category_middle_price(smartphone_category: Category, category_without_product: Category) -> None:
+    """"""
+
+    assert smartphone_category.middle_price() == 9
+    assert category_without_product.middle_price() == 0
