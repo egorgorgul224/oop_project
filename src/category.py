@@ -1,3 +1,5 @@
+from typing import Any
+
 from src.product import Product
 
 
@@ -49,3 +51,11 @@ class Category:
     def products_in_list(self) -> list:
         """Геттер выводит список товаров."""
         return self.__products
+
+    def middle_price(self) -> Any:
+        """Метод подсчитывает средний ценник всех товаров."""
+
+        try:
+            return round(sum([product.price for product in self.__products]) / len(self.__products), 2)
+        except ZeroDivisionError:
+            return 0
